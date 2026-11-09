@@ -20,30 +20,3 @@ It works on a phone or a computer, saves your progress in your browser, and need
 
 The session in the app is an example of how a beginner-friendly session could run. It isn't a real event, and the app isn't run by any club or university. It's an independent student proposal, made by Alexander Fitzsimons for Assessment 3 of Cross-Cultural Design Strategy at the University of Canberra. The rules follow MCR (the Mahjong Competition Rules).
 
-## Run it yourself
-
-You'll need [Node.js](https://nodejs.org) 20.19 or newer.
-
-- **On Windows:** double-click `preview.cmd`. It installs what it needs, builds the app and opens it in your browser.
-- **Anywhere else:**
-
-  ```bash
-  npm install
-  npm run dev       # start a local copy that reloads as you edit
-  npm test          # run the tests
-  npm run build     # make the production version in dist/
-  ```
-
-- **Offline copy:** `npm run build:standalone` makes a single file, `standalone/mahjong.html`, that opens with a double-click, no internet needed.
-
-## How it's made
-
-React and Vite, with plain JavaScript and CSS. There's no server or tracking, and nothing leaves your browser. The lesson text lives in `src/content/` and the lesson logic in `src/lib/`, which is also where the tests are.
-
-Every push to `main` runs the tests and publishes the app to GitHub Pages (see `.github/workflows/deploy.yml`).
-
-## Credits
-
-- Tile artwork is original, drawn for this app.
-- Interface font: Nunito (SIL Open Font License 1.1).
-- Tile characters: a small subset of Noto Serif SC (SIL Open Font License 1.1, see `src/assets/fonts/NotoSerifSC-OFL.txt`).
