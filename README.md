@@ -2,7 +2,7 @@
 
 A small web app that helps people get ready for their first mahjong session at uni.
 
-**Try it:** https://alekozf.github.io/Majong-App/
+**Try it:** https://alekozf.github.io/Mahjong-App/
 
 ## Why it exists
 
