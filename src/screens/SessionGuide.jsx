@@ -54,7 +54,7 @@ function GuideSection({ section }) {
 }
 
 // The three practical sections people look for most: arriving, choosing how to join, asking for help.
-// Buttons scroll within the page (the URL hash is used for routing) and move focus to the heading.
+// The buttons scroll down the page (the URL hash is taken by routing) and move focus to the heading.
 const JUMPS = [
   ['arrival', 'Your first few minutes'],
   ['options', 'Ways to take part'],

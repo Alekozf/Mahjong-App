@@ -57,7 +57,7 @@ describe('progress storage', () => {
     expect(clean.completed).toEqual({ 'meet-the-tiles': '2026-11-09T10:00:00Z' });
   });
 
-  it('falls back to overwriting the record when removal fails (AUD-004)', () => {
+  it('falls back to overwriting the record when removal fails', () => {
     const store = memoryStore();
     saveProgress(markComplete(emptyProgress(), 'meet-the-tiles'), store);
     store.removeItem = () => { throw new Error('SecurityError'); };
@@ -65,7 +65,7 @@ describe('progress storage', () => {
     expect(loadProgress(ids, store).progress).toEqual(emptyProgress()); // a reload stays reset
   });
 
-  it('reports failure when the record can be neither removed nor overwritten (AUD-004)', () => {
+  it('reports failure when the record can be neither removed nor overwritten', () => {
     const store = memoryStore();
     saveProgress(markComplete(emptyProgress(), 'meet-the-tiles'), store);
     store.removeItem = () => { throw new Error('SecurityError'); };

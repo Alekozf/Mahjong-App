@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// base './' makes every asset URL relative, so the build works at any GitHub Pages
-// repository path (https://<user>.github.io/<repo>/) without hard-coding the repo name.
-// Hash routing means no server rewrites are needed for deep links or refresh.
+// base './' keeps every asset path relative, so the build works under any GitHub Pages repo name.
+// Routes use the URL hash, so deep links and refreshes work without any server setup.
 export default defineConfig({
   base: './',
   plugins: [react()],

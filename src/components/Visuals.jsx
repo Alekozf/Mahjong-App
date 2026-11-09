@@ -9,8 +9,8 @@ export function TileRow({ tiles, size = 'md', label, className = '' }) {
   );
 }
 
-// `columns`: on wider screens, show the groups side by side (e.g. the three suits), each label
-// directly above its own tiles. Phones always stack.
+// With `columns`, wider screens show the groups side by side (like the three suits), each label
+// above its own tiles. Phones always stack them.
 export function TileGroups({ groups, compact = false, columns = false }) {
   return (
     <div
@@ -43,7 +43,7 @@ export function NumeralKey() {
   );
 }
 
-/** Four seats seen from above. Play moves counterclockwise: you, then right, opposite, left. */
+// The four seats from above. Play goes anticlockwise: you, then right, opposite, left.
 export function Seats() {
   return (
     <figure className="seats">
@@ -71,7 +71,7 @@ export function Seats() {
   );
 }
 
-/** Tile cluster used on lesson cards and the session hero, with small accent marks like the concept art. */
+// The small tile cluster on lesson cards and the session hero, with a few accent marks.
 export function TileCluster({ tiles, size = 'md', accent = true }) {
   return (
     <div className={`cluster cluster--${tiles.length} cluster--${size}`} aria-hidden="true">
@@ -91,11 +91,8 @@ export function TileCluster({ tiles, size = 'md', accent = true }) {
   );
 }
 
-/**
- * Session hero: three large tiles with a chunky 3D base, tilted like tiles tipped onto the table,
- * with yellow spark lines and star, coral flower dots and a soft sage shadow (as in the concept art).
- * Purely decorative: hidden from assistive tech.
- */
+// Session hero: three big tiles tipped onto the table, with sparks, a star and a few flowers.
+// It's only decoration, so screen readers skip it.
 export function HeroArt({ tiles = ['dots-4', 'bamboo-5', 'dragon-red'] }) {
   const flower = (cx, cy, r) => (
     <g fill="var(--coral-500)">
@@ -118,8 +115,7 @@ export function HeroArt({ tiles = ['dots-4', 'bamboo-5', 'dragon-red'] }) {
           <Tile key={`${id}-${i}`} id={id} size="xl" decorative className={`hero-art__tile hero-art__tile--${i}`} />
         ))}
       </div>
-      {/* Spark lines on a front layer, radiating up and away from the left tile's top corner,
-          so the tiles never cover them */}
+      {/* the sparks sit on a front layer so the tiles never cover them */}
       <svg className="hero-art__front" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet">
         <path d="M58 52 L47 31 M79 46 L79 21 M42 66 L21 58" stroke="var(--yellow-500)" strokeWidth="9" strokeLinecap="round" />
       </svg>

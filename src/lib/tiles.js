@@ -1,5 +1,5 @@
-// Tile model. Ids look like "dots-5", "bamboo-1", "characters-9", "wind-east", "dragon-red".
-// Terminology and counts checked against Mahjong Competition Rules (2014, 2nd ed.), §3.5.5 (see docs/CONTENT_SOURCES.md).
+// Tiles. Ids look like "dots-5", "bamboo-1", "characters-9", "wind-east" or "dragon-red".
+// Names and counts follow the Mahjong Competition Rules (2014, 2nd ed.), §3.5.5.
 
 export const SUITS = ['dots', 'bamboo', 'characters'];
 export const WINDS = ['east', 'south', 'west', 'north'];
@@ -12,7 +12,7 @@ export const DRAGON_GLYPHS = { red: '中', green: '發', white: '' };
 const SUIT_NAMES = { dots: 'Dots', bamboo: 'Bamboo', characters: 'Characters' };
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
-/** Parse a tile id into { id, kind, suit, value, name }. Throws on an unknown id so content mistakes fail loudly. */
+// Turn a tile id into { id, kind, suit, value, name }. Unknown ids throw, so typos in the content show up straight away.
 export function parseTile(id) {
   const [kind, raw] = String(id).split('-');
   if (SUITS.includes(kind)) {
@@ -31,7 +31,7 @@ export function parseTile(id) {
 
 export const tileName = (id) => parseTile(id).name;
 
-/** Plain-English list of tile names: "6 Characters, 7 Characters and 8 Characters". */
+// Tile names as a phrase: "6 Characters, 7 Characters and 8 Characters".
 export function listNames(ids) {
   const names = ids.map(tileName);
   if (names.length <= 1) return names.join('');

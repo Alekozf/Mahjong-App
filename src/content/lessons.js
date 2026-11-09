@@ -1,4 +1,4 @@
-// Lesson content, kept separate from the UI. Rule claims are mapped to MCR sections in docs/CONTENT_SOURCES.md.
+// All the lesson text lives here, separate from the UI. The rules follow the MCR rulebook.
 //
 // Step kinds
 //   explain: { title, body: [paragraphs], visual?, note? }

@@ -16,8 +16,8 @@ function ProgressBar({ done, total }) {
 
 function LessonCard({ lesson, completed, inProgress, isNext, onOpen, onRestart }) {
   const titleId = `lesson-${lesson.id}-title`;
-  // Only the suggested lesson gets the filled button; every other lesson stays fully
-  // available with an outlined one. Nothing is locked and no order is required.
+  // The suggested lesson gets the filled button and the others get outlined ones. Nothing is
+  // locked, and the lessons can be done in any order.
   let action;
   if (inProgress) action = { label: 'Resume lesson', run: () => onOpen(lesson.id) };
   else if (completed) action = { label: 'Replay lesson', run: () => onRestart(lesson.id) };
@@ -63,7 +63,7 @@ function LessonCard({ lesson, completed, inProgress, isNext, onOpen, onRestart }
   );
 }
 
-// What the settings panel shows after a reset attempt. 'failed' must never claim the saved record is gone.
+// What the settings panel says after a reset. If it failed, don't pretend the progress is gone.
 const RESET_MESSAGES = {
   saved: 'Progress reset.',
   visit: 'Progress reset for this visit. This browser wasn’t saving progress, so there was nothing stored to clear.',
@@ -80,16 +80,15 @@ export default function LearnOverview({ lessons, progress, runs, storageAvailabl
   const statusRef = useRef(null);
   const done = lessons.filter((l) => progress.completed[l.id]).length;
   const allDone = done === lessons.length;
-  // A gentle suggestion only, nothing is locked: a lesson you've started comes first,
-  // otherwise the first lesson not yet completed.
+  // Just a suggestion: a lesson you've started comes first, otherwise the first one you haven't finished.
   const isStarted = (l) => {
     const run = runs[l.id];
     return Boolean(run && !run.finished && (run.step > 0 || run.status !== 'idle'));
   };
   const nextId = (lessons.find((l) => isStarted(l) && !progress.completed[l.id]) || lessons.find(isStarted) || lessons.find((l) => !progress.completed[l.id]))?.id;
 
-  // Move focus deliberately when the confirmation opens or closes, so keyboard and
-  // screen-reader users never land on <body> when the focused button disappears.
+  // Move focus when the confirmation opens or closes, so keyboard and screen-reader users
+  // aren't left stranded when the button they were on disappears.
   useEffect(() => {
     if (!focusTarget) return;
     const el = { reset: resetBtn, cancel: cancelBtn, status: statusRef }[focusTarget].current;

@@ -27,7 +27,7 @@ export default function App() {
 
   useEffect(() => saveRuns(runs), [runs]);
 
-  // Move focus to the new screen's heading so keyboard and screen-reader users land at the top.
+  // When the screen changes, move focus to its heading so keyboard and screen-reader users start at the top.
   useEffect(() => {
     const deepLinkedSection = route.name === 'reference' && route.section;
     if (firstRender.current) {
@@ -57,21 +57,18 @@ export default function App() {
     });
   }, []);
 
-  // Explicit replay or restart: always back to step 1 (completion records are kept).
+  // Replay or restart always goes back to step 1. Finished lessons stay finished.
   const restartLesson = useCallback((lessonId) => {
     setRuns((prev) => ({ ...prev, [lessonId]: initialLessonState() }));
   }, []);
 
-  // Ordinary navigation to a lesson: resume an unfinished run, otherwise start fresh.
+  // Opening a lesson picks up where you left off, or starts fresh.
   const openLesson = useCallback((lessonId) => {
     setRuns((prev) => (prev[lessonId] && !prev[lessonId].finished ? prev : { ...prev, [lessonId]: initialLessonState() }));
   }, []);
 
-  /**
-   * Clear completion in memory, then try to clear the saved record.
-   * Returns 'saved' (reset will survive a reload), 'visit' (storage isn't in use, so
-   * nothing was saved to begin with) or 'failed' (the saved record could not be cleared).
-   */
+  // Clear progress. Returns 'saved' if the reset will last after a reload, 'visit' if the
+  // browser wasn't saving anything anyway, or 'failed' if the saved progress couldn't be cleared.
   const resetProgress = useCallback(() => {
     const result = clearProgress() ? 'saved' : available ? 'failed' : 'visit';
     setProgressState({ progress: emptyProgress(), available: result === 'saved' });
@@ -126,7 +123,7 @@ export default function App() {
   }
 
   const focused = route.name === 'lesson';
-  // Skip link: hash routing owns the URL hash, so focus <main> directly instead of following "#main".
+  // Skip link: the URL hash is used for routing, so focus <main> directly rather than jumping to #main.
   const skip = (e) => {
     e.preventDefault();
     document.getElementById('main')?.focus();

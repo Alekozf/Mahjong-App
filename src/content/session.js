@@ -1,5 +1,5 @@
-// Session guide content. This describes a PROPOSED beginner-friendly session: no real dates, venues,
-// hosts or bookings. ACYA ANU's public posts are context only; their arrangements are unconfirmed.
+// Session guide text. It's an example of how a beginner-friendly session could run, so there are
+// no real dates, venues, hosts or bookings.
 
 export const exampleSession = {
   label: 'Example session',

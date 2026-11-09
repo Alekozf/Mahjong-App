@@ -1,5 +1,5 @@
-/* Design tokens. Palette from the Learn-page concept (ivory, deep green, jade/sage, small coral and yellow
-   highlights); spacing, type floors, radius and motion numbers follow Taste Skill 2.5.1 system/motion rules. */
+/* Design tokens: ivory, deep green and jade with small touches of coral and yellow, plus the
+   type, spacing, radius and motion scales. */
 
 @font-face {
   /* 20 glyphs subset from Noto Serif SC (SIL OFL 1.1): 一二三四五六七八九萬東南西北中發 (tiles) and 吃碰杠和 (calls) */
@@ -48,7 +48,7 @@
   --tile-red: #c43d2a;
   --tile-green: #2b784b;
   --tile-ink: #1c2a3e;
-  /* bamboo segment fills: the suit colours mixed ~18% towards the tile face (outlines use the full colours) */
+  /* bamboo fills: the suit colours, lightened a little (outlines use the full colours) */
   --tile-green-stick: #519069;
   --tile-blue-stick: #507199;
   --tile-red-stick: #cf5f4e;
@@ -75,7 +75,7 @@
   --s-8: 64px;
   --s-9: 96px;
 
-  /* Radius ("round" family for a consumer app) */
+  /* Radius */
   --r-sm: 10px;
   --r-md: 16px;
   --r-lg: 24px;

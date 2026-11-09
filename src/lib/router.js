@@ -1,8 +1,8 @@
-// Hash routing: works on GitHub Pages (or any static host) under any repository path,
-// survives refresh and supports browser back/forward without server rewrites.
+// Routes live in the URL hash, so the app works on GitHub Pages under any repo name,
+// survives a refresh and works with the back and forward buttons.
 import { useEffect, useState } from 'react';
 
-/** "#/learn/meet-the-tiles?from=x" -> { path: '/learn/meet-the-tiles', segments: [...], query: {from:'x'} } */
+// "#/learn/meet-the-tiles?from=x" becomes { path: '/learn/meet-the-tiles', segments: [...], query: { from: 'x' } }
 export function parseHash(hash) {
   const raw = (hash || '').replace(/^#/, '') || '/';
   const [pathPart, queryPart = ''] = raw.split('?');

@@ -1,13 +1,13 @@
-// Original SVG mahjong tiles (drawn for this project). Faces follow standard MCR tile designs:
-// Dots = circles, Bamboo = sticks (1 Bamboo as a bird), Characters = numeral over 萬,
-// Winds 東 南 西 北, Dragons 中 (red), 發 (green) and a framed White Dragon.
+// Mahjong tiles, drawn as SVG for this app. The faces follow the standard designs: circles for
+// Dots, sticks for Bamboo (with a bird on the 1), a numeral over 萬 for Characters, 東 南 西 北 for
+// the Winds, and 中 (red), 發 (green) and a framed blank for the Dragons.
 import { memo } from 'react';
 import { parseTile, NUMERALS, WIND_GLYPHS, DRAGON_GLYPHS } from '../lib/tiles.js';
 
 const C = { blue: 'var(--tile-blue)', red: 'var(--tile-red)', green: 'var(--tile-green)', ink: 'var(--tile-ink)', face: 'var(--tile-face)' };
 
-// A dot for 2–9 Dots: the plain three-ring circle, plus a fine ivory line inside the coloured band
-// that echoes the outer ring of the 1 Dots medallion (a light accent that keeps dots easy to count).
+// One dot for the 2–9 Dots. A thin ivory line in the coloured ring echoes the 1 Dots without
+// making the dots harder to count.
 function Dot({ cx, cy, r, color }) {
   return (
     <g>
@@ -32,8 +32,8 @@ const DOTS = {
   9: { r: 7, pts: [[15, 16, B], [30, 16, B], [45, 16, B], [15, 36, R], [30, 36, R], [45, 36, R], [15, 56, G], [30, 56, G], [45, 56, G]] },
 };
 
-// 1 Dots: the large ornamental circle. Outer ring, a green disc with 16 U-shaped ivory petals
-// (open towards the centre), an ivory ring and a red centre with a four-petal ivory clover.
+// 1 Dots: the big decorative circle. A green disc with 16 ivory petals, an ivory ring, and a red
+// centre with a small four-petal clover.
 const PETAL = 'M-1.6 -10.8L-2.4 -14.4A2.4 2.4 0 0 1 2.4 -14.4L1.6 -10.8Z';
 const PETAL_SLOT = 'M-0.6 -10.4V-14.2A0.6 0.6 0 0 1 0.6 -14.2V-10.4Z';
 const CLOVER_LEAF = 'M0.75 0.75C0.75 3.6 1.5 5 3 5.1A2.25 2.25 0 0 0 5.1 3C5 1.5 3.6 0.75 0.75 0.75Z';
@@ -62,11 +62,10 @@ function Dots({ value }) {
   return <g>{pts.map(([cx, cy, col], i) => <Dot key={i} cx={cx} cy={cy} r={r} color={col} />)}</g>;
 }
 
-// Bamboo sticks are built from jointed segments, as in Alexander's reference sheet: each segment is
-// waisted (flared ends, narrow middle), filled with the suit colour, outlined a shade darker, with a
-// faint highlight. A "stick" is two segments stacked; 2–9 Bamboo are arrangements of sticks.
-// Segments are filled with the suit colours lightened slightly (about 18% towards the tile face) so
-// the sticks sit level with the Dots and Characters, and outlined in the full suit colour.
+// Bamboo sticks are made of jointed segments that narrow in the middle, each with a darker
+// outline and a faint highlight. A stick is two segments stacked, and 2–9 Bamboo are arrangements
+// of sticks. The fills are a little lighter than the suit colours so the sticks don't overpower
+// the Dots and Characters.
 const FILL = {
   [C.green]: 'var(--tile-green-stick)',
   [C.blue]: 'var(--tile-blue-stick)',
@@ -99,7 +98,7 @@ function Stick({ x, y1, y2, color, w = 6, rot = 0, segments = 2 }) {
   );
 }
 
-// [x, y1, y2, colour, rotation?] — colours and arrangement follow the reference sheet.
+// [x, y1, y2, colour, rotation?]
 const BAMBOO = {
   2: [[30, 6, 34, G], [30, 38, 66, B]],
   3: [[30, 6, 34, B], [18, 38, 66, G], [42, 38, 66, G]],
@@ -107,9 +106,8 @@ const BAMBOO = {
   5: [[15, 6, 34, G], [15, 38, 66, B], [45, 6, 34, G], [45, 38, 66, B], [30, 23, 49, R]],
   6: [[15, 6, 34, G], [30, 6, 34, G], [45, 6, 34, G], [15, 38, 66, B], [30, 38, 66, B], [45, 38, 66, B]],
   7: [[30, 4, 23, R], [15, 26, 45.5, G], [15, 47.5, 67, G], [30, 26, 45.5, B], [30, 47.5, 67, B], [45, 26, 45.5, G], [45, 47.5, 67, G]],
-  // 8 Bamboo: uprights at each side (green above, blue below) and short jointed diagonals forming
-  // a Λ above and a V below a central diamond (MCR rulebook p. 7; reference sheet).
-  // Each diagonal runs (19, 30.5) to (27.5, 18.5) and mirrors: length 14.7, angle 35.3°.
+  // 8 Bamboo: a stick up each side, and short diagonals making a Λ above and a V below a diamond
+  // in the middle, as in the MCR rulebook (p. 7).
   8: [
     [23.25, 17.15, 31.85, G, 35.3], [36.75, 17.15, 31.85, G, -35.3],
     [23.25, 41.15, 55.85, B, -35.3], [36.75, 41.15, 55.85, B, 35.3],
@@ -122,9 +120,8 @@ const BAMBOO = {
   ],
 };
 
-// 1 Bamboo (v4, to Alexander's reference): a line-drawn songbird facing left, perched on a leafy
-// branch between two red five-petal blossoms. Blue outline, curling red crest, green eye, striped
-// breast, hatched wing, long blue-and-red tail. Coordinates are in the 60 x 80 tile.
+// 1 Bamboo: a songbird facing left, perched on a leafy branch between two red blossoms.
+// Coordinates are in the 60 x 80 tile.
 function Blossom({ cx, cy, r = 6 }) {
   const petal = `M0 ${-r * 0.24}C${-r * 0.62} ${-r * 0.36} ${-r * 0.66} ${-r * 0.98} 0 ${-r}C${r * 0.66} ${-r * 0.98} ${r * 0.62} ${-r * 0.36} 0 ${-r * 0.24}Z`;
   return (
@@ -177,8 +174,7 @@ function Bird() {
       <Blossom cx={17.4} cy={17.2} r={6.8} />
       <Blossom cx={37.2} cy={55.8} r={6.8} />
 
-      {/* tail: plain strokes, as in the reference. Short blue lines tucked under the body, and two
-          long lines from the wing tip running blue, then red to the end. */}
+      {/* tail: short blue strokes under the body, then two long lines running blue into red */}
       <path d="M34.6 41.4L47.6 50.6M38.6 41L48 50M43.4 42.6L48.2 50.4" {...s(C.blue, 1.05)} />
       <path d="M47.2 44.8L49 50.2M49.2 44.6L50.8 49.8" {...s(C.blue, 1.05)} />
       <path d="M49 50.2L51.6 61.8M50.8 49.8L54 60.8" {...s(C.red, 1.05)} />
@@ -248,10 +244,8 @@ function Face({ tile }) {
   return <Honour tile={tile} />;
 }
 
-/**
- * A single tile. When `decorative` is true it is hidden from assistive tech
- * (use when a parent control already carries the tile's name).
- */
+// One tile. Set `decorative` when a parent button already names the tile, so screen readers
+// don't hear it twice.
 function Tile({ id, size = 'md', decorative = false, className = '' }) {
   const tile = parseTile(id);
   const a11y = decorative ? { 'aria-hidden': true } : { role: 'img', 'aria-label': tile.name };

@@ -17,7 +17,7 @@ export function Brand() {
   );
 }
 
-/** Bottom bar on phones, side rail on wider screens. Same markup, two layouts. */
+// Bottom bar on phones, side rail on bigger screens. Same markup, two layouts.
 export function MainNav({ current }) {
   return (
     <nav className="main-nav" aria-label="Main">

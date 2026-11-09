@@ -112,7 +112,7 @@ export default function Reference({ from }) {
         <h1 tabIndex={-1}>Quick reference</h1>
         <p className="lead">The essentials of MCR, for a reminder at the table.</p>
       </header>
-      {/* Outside the header so it can stay in view while scrolling (where there's room: see CSS) */}
+      {/* kept outside the header so it can stick while you scroll, on screens with room for it */}
       <nav className={`shortcuts ${fromLesson ? 'shortcuts--below-return' : ''}`} aria-label="Reference sections">
           {referenceSections.map((s) => (
             <a key={s.id} className="shortcut" href={href(`/reference/${s.id}${fromLesson ? `?from=${fromLesson.id}` : ''}`)}>

@@ -1,9 +1,9 @@
-// Lesson engine: pure functions so answer logic can be tested without the UI.
+// Lesson logic, kept away from the UI so it's easy to test.
 import { chowReason, pungReason } from './rules.js';
 
 export const isActivity = (step) => step.kind === 'choice' || step.kind === 'select';
 
-/** Check an answer. `answer` is an option id (choice) or an array of tile indexes (select). */
+// Check an answer: an option id for choice steps, or a list of tile positions for select steps.
 export function evaluate(step, answer) {
   if (step.kind === 'choice') {
     if (answer == null) return { correct: false, message: '' };
@@ -24,7 +24,7 @@ export function evaluate(step, answer) {
   return { correct: true, message: '' };
 }
 
-/** Is `answer` a well-formed answer for this step (right type, known option, indexes in range)? */
+// Could this even be an answer to the step? (Right type, a real option, positions in range.)
 export function isValidAnswer(step, answer) {
   if (step.kind === 'choice') return typeof answer === 'string' && step.options.some((o) => o.id === answer);
   if (step.kind === 'select') {
@@ -38,17 +38,15 @@ export function isValidAnswer(step, answer) {
   return false;
 }
 
-/**
- * Rebuild a lesson run from untrusted saved data (sessionStorage). Only shapes the lesson can
- * produce survive; feedback text is always regenerated from the reviewed lesson content, never
- * taken from storage. Returns null when the run can't be recovered (caller starts fresh).
- */
+// Rebuild a saved lesson run. Saved data can't be trusted, so only what the lesson could really
+// produce is kept, and feedback text always comes from the lesson content, never from storage.
+// Returns null if nothing usable is left, and the lesson starts fresh.
 export function sanitiseRun(lesson, raw) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
   const { step } = raw;
   if (!Number.isInteger(step) || step < 0 || step >= lesson.steps.length) return null;
 
-  // Cleared activities: keep an entry only if its saved answer really is correct.
+  // Only keep finished activities whose saved answer really is correct.
   const cleared = {};
   if (raw.cleared && typeof raw.cleared === 'object' && !Array.isArray(raw.cleared)) {
     for (const [key, entry] of Object.entries(raw.cleared)) {
@@ -62,7 +60,7 @@ export function sanitiseRun(lesson, raw) {
     }
   }
 
-  // The current step: answer and status must agree with what the content says about that answer.
+  // The current step's answer and status have to match what the lesson says about that answer.
   const current = lesson.steps[step];
   let answer = null, status = 'idle', message = '';
   if (isActivity(current) && raw.answer != null && isValidAnswer(current, raw.answer)) {
@@ -83,7 +81,7 @@ export function sanitiseRun(lesson, raw) {
   return { step, answer, status, message, finished, cleared };
 }
 
-/** A step can be left only once it is understood: explanations always, activities only after a correct answer. */
+// You can move on from an explanation any time, and from an activity once you've got it right.
 export const canContinue = (step, status) => !isActivity(step) || status === 'correct';
 
 export const initialLessonState = () => ({ step: 0, answer: null, status: 'idle', message: '', finished: false, cleared: {} });
@@ -96,10 +94,8 @@ function openStep(state, index) {
     : { ...state, step: index, answer: null, status: 'idle', message: '', finished: false };
 }
 
-/**
- * Reducer for one lesson run. Wrong answers never advance; Continue only works after a correct answer.
- * Actions: select-option, toggle-tile, check, retry, continue, back, restart.
- */
+// One lesson run. A wrong answer never moves you on, and Continue only works after a right one.
+// Actions: select-option, toggle-tile, check, retry, continue, back, restart.
 export function lessonReducer(lesson, state, action) {
   const step = lesson.steps[state.step];
   switch (action.type) {
@@ -110,7 +106,7 @@ export function lessonReducer(lesson, state, action) {
       if (state.status === 'correct') return state;
       const current = Array.isArray(state.answer) ? state.answer : [];
       const has = current.includes(action.index);
-      if (!has && current.length >= step.count) return state; // already holding the maximum
+      if (!has && current.length >= step.count) return state; // can't pick more tiles than the step asks for
       const next = has ? current.filter((i) => i !== action.index) : [...current, action.index];
       return { ...state, answer: next, status: 'idle', message: '' };
     }

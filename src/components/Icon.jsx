@@ -1,6 +1,6 @@
-// Simple stroke icons drawn for this project. Decorative by default; pass `label` to expose one.
+// Icons drawn for this app. Screen readers skip them unless you give one a `label`.
 const paths = {
-  // Navigation icons: chunky, filled shapes in the style of the Learn concept.
+  // Navigation icons: chunky, filled shapes.
   // Session: a games table (thick top, apron, splayed legs).
   session: (
     <>

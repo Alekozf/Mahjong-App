@@ -16,8 +16,8 @@ function optionState(selected, status) {
   return 'is-selected';
 }
 
-// Small corner mark on a chosen tile: a dot while selected, a tick when right, a cross when not.
-// Decorative; the button's aria-pressed and the feedback text carry the meaning.
+// A small mark in the corner of a chosen tile: a dot while selected, a tick if right, a cross if
+// not. It's only visual; screen readers get the same from aria-pressed and the feedback text.
 function StateMark({ status }) {
   return (
     <span className={`tile-mark tile-mark--${status}`} aria-hidden="true">
@@ -66,8 +66,8 @@ function ChoiceOptions({ step, state, dispatch }) {
 
   // 'tiles' and 'hand': every option is a single tile button.
   const hand = step.layout === 'hand';
-  // In the hand layout the caption states the hand's current size, before and after the discard,
-  // so the picture always agrees with the feedback. Options keep their indexes either way.
+  // In the hand layout the caption gives the hand's size before and after the discard, so the
+  // picture always matches the feedback.
   const handLabel = hand ? (locked && step.handLabelAfter) || step.handLabel || 'Your hand' : null;
   return (
     <>
@@ -81,8 +81,8 @@ function ChoiceOptions({ step, state, dispatch }) {
         {step.options.map((o, i) => {
           const selected = state.answer === o.id;
           const isNew = hand && step.handHighlight === i;
-          // After a correct discard the tile leaves the hand (hidden in place, so option indexes
-          // never change) and is shown in its own labelled group below.
+          // After a correct discard the tile leaves the hand (hidden in place, so the options
+          // don't shift) and shows up in its own group below.
           const discarded = hand && locked && selected;
           return (
             <button
@@ -163,8 +163,8 @@ function Feedback({ state }) {
 
 function Completion({ lesson, onRestart, onOpen, progress }) {
   const next = lessons.find((l) => l.number === lesson.number + 1);
-  // Count this lesson as done straight away (its completion is saved in an effect a moment later),
-  // so the heading never flips from "Lesson complete" to "Introduction complete" after it is announced.
+  // Count this lesson as done right away (it's saved a moment later), so the heading doesn't
+  // change after a screen reader has already read it out.
   const allDone = lessons.every((l) => l.id === lesson.id || progress.completed[l.id]);
   const headingRef = useRef(null);
   // Completion replaces the step (and its heading), so focus its own heading when it appears.
@@ -207,8 +207,8 @@ export default function LessonPlayer({ lesson, state, dispatch, onComplete, onRe
     if (state.finished) onComplete(lesson.id);
   }, [state.finished, lesson.id, onComplete]);
 
-  // On a new step, move focus to its heading (not on first mount; App handles route focus).
-  // Completion focuses its own heading, so only steps are handled here.
+  // Move focus to each new step's heading. App already does this for the first step, and the
+  // completion screen handles its own.
   useEffect(() => {
     if (firstStep.current) {
       firstStep.current = false;

@@ -1,5 +1,5 @@
-// Quick reference content. Same tiles and terms as the lessons. Sources: docs/CONTENT_SOURCES.md.
-// Each section: essentials (always visible) and more (expandable detail).
+// Quick reference text, using the same tiles and terms as the lessons.
+// Each section has essentials (always shown) and more (behind a toggle).
 
 export const referenceSections = [
   {

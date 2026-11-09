@@ -1,5 +1,5 @@
-// Lesson completion saved in localStorage. Versioned, validated, and never allowed to crash the app:
-// blocked storage (private modes, strict settings) or corrupted data fall back to an empty record.
+// Finished lessons are saved in localStorage. If storage is blocked (private browsing, strict
+// settings) or the data is corrupted, the app falls back to an empty record instead of crashing.
 
 export const STORAGE_KEY = 'mahjong-companion:progress';
 export const STORAGE_VERSION = 1;
@@ -11,11 +11,11 @@ function getStore(store) {
   try {
     return typeof window !== 'undefined' ? window.localStorage : null;
   } catch {
-    return null; // Accessing localStorage itself can throw when storage is blocked.
+    return null; // just touching localStorage can throw when it's blocked
   }
 }
 
-/** Keep only lesson ids we know about and ISO-like date strings. */
+// Keep only lesson ids we know and dates that look right.
 export function sanitiseProgress(data, knownIds) {
   const clean = emptyProgress();
   if (!data || typeof data !== 'object' || data.version !== STORAGE_VERSION) return clean;
@@ -40,7 +40,7 @@ export function loadProgress(knownIds, store) {
   }
 }
 
-/** Returns true when the write succeeded. */
+// Returns true if the save worked.
 export function saveProgress(progress, store) {
   const s = getStore(store);
   if (!s) return false;
@@ -53,15 +53,13 @@ export function saveProgress(progress, store) {
 }
 
 export function markComplete(progress, lessonId, now = new Date()) {
-  // Replaying keeps the first completion date: replay never erases a record.
+  // Replaying a lesson keeps the date you first finished it.
   if (progress.completed[lessonId]) return progress;
   return { ...progress, completed: { ...progress.completed, [lessonId]: now.toISOString() } };
 }
 
-/**
- * Clear the saved record. If removing it fails, overwrite it with an empty record instead.
- * Returns true only when the saved state is now genuinely empty (so a reload stays reset).
- */
+// Clear the saved record, or overwrite it with an empty one if removing it fails. Returns true
+// only when nothing is left saved, so a reload stays reset.
 export function clearProgress(store) {
   const s = getStore(store);
   if (!s) return false;

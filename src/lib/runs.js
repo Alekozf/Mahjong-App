@@ -1,6 +1,6 @@
-// In-progress lesson positions live in sessionStorage: they survive a refresh or a trip to the
-// reference, but not a new visit. Failures are ignored; the app works without it.
-// Each saved run is rebuilt by sanitiseRun: invalid runs are dropped one by one, valid ones kept.
+// Where you're up to in each lesson is kept in sessionStorage, so it survives a refresh or a
+// trip to the reference, but not a new visit. If storage fails the app just carries on.
+// Each saved run is checked by sanitiseRun: bad ones are dropped, good ones kept.
 import { sanitiseRun } from './lesson.js';
 
 export const RUNS_KEY = 'mahjong-companion:runs';
@@ -26,7 +26,7 @@ export function loadRuns(lessons, store) {
       if (run) runs[lesson.id] = run;
     }
   } catch {
-    /* unreadable: start without saved positions */
+    /* can't read it: start without saved positions */
   }
   return runs;
 }

@@ -1,5 +1,5 @@
-// AUD-001: saved lesson runs are untrusted input. These tests check that malformed runs are
-// rebuilt or dropped individually, and that valid runs still resume exactly.
+// Saved lesson runs could contain anything. Broken runs should be fixed or dropped one at a
+// time, and good runs should resume exactly where they left off.
 import { describe, expect, it } from 'vitest';
 import { sanitiseRun, initialLessonState, lessonReducer } from './lesson.js';
 import { loadRuns, RUNS_KEY } from './runs.js';

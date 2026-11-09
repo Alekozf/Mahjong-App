@@ -1,7 +1,6 @@
-// Standalone build: one self-contained HTML file (JS, CSS, fonts and icon inlined) that opens
-// by double-clicking, with no server. Browsers block separate module scripts on file:// pages,
-// so everything is placed inside the HTML.
-// Usage: npm run build:standalone  ->  standalone/mahjong.html
+// Standalone build: one HTML file with the code, styles, fonts and icon all inside, so it opens
+// with a double-click and no server. (Browsers block separate script files on file:// pages.)
+// Run: npm run build:standalone  ->  standalone/mahjong.html
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import fs from 'node:fs';

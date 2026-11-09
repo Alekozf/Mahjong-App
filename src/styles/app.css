@@ -618,7 +618,7 @@ svg {
   display: flex;
   justify-content: center;
 }
-/* Session hero: tilted tiles with a chunky green base, sparks, star, coral flowers, sage shadow */
+/* Session hero: tilted tiles on a chunky green base */
 .hero-art {
   position: relative;
   width: min(100%, 400px);
@@ -789,7 +789,7 @@ svg {
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-card);
 }
-/* Example-session label: pale sage pill with deep green text and a small jade dot */
+/* "Example session" label */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -1061,10 +1061,8 @@ button.shortcut {
   display: grid;
   gap: var(--s-4);
 }
-/* Lesson cards.
-   Phone: title and a small illustration share the top row; outcome and action use the full width.
-   Tablet/desktop column: illustration column beside the text, no divider.
-   Wide desktop: three cards side by side with their actions aligned. */
+/* Lesson cards. On phones the title and a small picture share the top row. On wider screens the
+   picture sits beside the text, and on wide desktops the three cards line up side by side. */
 .lesson-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 92px;
@@ -1501,8 +1499,7 @@ button.shortcut {
 .choice.is-wrong .choice__mark {
   border-color: var(--coral-500);
 }
-/* After a correct answer the unchosen options stay readable: tiles and text keep full colour,
-   only the card's border and background go quieter */
+/* After a correct answer the other options stay readable: only their border and background fade */
 .choice:disabled {
   cursor: default;
   opacity: 1;

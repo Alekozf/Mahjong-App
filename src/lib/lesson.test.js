@@ -6,7 +6,7 @@ import { isChow, isPung, isPair } from './rules.js';
 
 const run = (lesson, actions, start = initialLessonState()) => actions.reduce((s, a) => lessonReducer(lesson, s, a), start);
 
-/** The correct action sequence for one step. */
+// The actions that answer one step correctly.
 function solve(step) {
   if (step.kind === 'choice') return [{ type: 'select-option', id: step.answer }, { type: 'check' }, { type: 'continue' }];
   if (step.kind === 'select') {
@@ -94,7 +94,7 @@ describe('lesson content integrity', () => {
     Object.values(counts(after)).forEach((n) => expect(n).toBeLessThanOrEqual(4));
   });
 
-  it('shows the post-draw hand after the correct draw, matching the discard step (AUD-006)', () => {
+  it('shows the post-draw hand after the correct draw, matching the discard step', () => {
     const l = getLesson('try-a-guided-turn');
     const draw = l.steps.find((s) => s.display?.type === 'hand');
     const discard = l.steps.find((s) => s.layout === 'hand');
