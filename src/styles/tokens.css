@@ -1,0 +1,107 @@
+/* Design tokens. Palette from the Learn-page concept (ivory, deep green, jade/sage, small coral and yellow
+   highlights); spacing, type floors, radius and motion numbers follow Taste Skill 2.5.1 system/motion rules. */
+
+@font-face {
+  /* 20 glyphs subset from Noto Serif SC (SIL OFL 1.1): 一二三四五六七八九萬東南西北中發 (tiles) and 吃碰杠和 (calls) */
+  font-family: 'Tile Glyphs';
+  src: url('../assets/fonts/noto-serif-sc-tiles-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: block;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --page: #fbf7ee;
+  --surface: #fffdf8;
+  --surface-sunk: #f4eedf;
+  --line: #e5dcc8;
+  --line-strong: #cfc4ab;
+
+  /* Ink and action (deep green). --ink on --page is about 11:1; --muted about 6:1 */
+  --ink: #173a2a;
+  --muted: #4c6155;
+  --green-900: #102e20;
+  --green-800: #164a31;
+  --green-700: #1d5c3c;
+  --green-600: #2a7350;
+  --jade-500: #3c8c63; /* decorative: icons, rings, segments (3.8:1, not for small text) */
+  --jade-text: #2a7350; /* small jade-coloured text: 5.4:1 on --page */
+  --sage-50: #f3f6ec;
+  --sage-100: #e9f0de;
+  --sage-200: #d8e4c6;
+  --sage-300: #bfd1a7;
+
+  /* Small highlights only */
+  --coral-500: #e2674f;
+  --coral-700: #a43723;
+  --coral-100: #fbe8e1;
+  --yellow-500: #f2be45;
+  --yellow-100: #fdf3d6;
+
+  /* Tiles */
+  --tile-face: #fffcf2;
+  --tile-back: #1d5c3c;
+  --tile-edge: rgba(23, 58, 42, 0.14);
+  --tile-blue: #2a5286;
+  --tile-red: #c43d2a;
+  --tile-green: #2b784b;
+  --tile-ink: #1c2a3e;
+  /* bamboo segment fills: the suit colours mixed ~18% towards the tile face (outlines use the full colours) */
+  --tile-green-stick: #519069;
+  --tile-blue-stick: #507199;
+  --tile-red-stick: #cf5f4e;
+
+  /* Type */
+  --font-ui: 'Nunito Variable', ui-rounded, 'SF Pro Rounded', 'Segoe UI', system-ui, sans-serif;
+  --font-tile: 'Tile Glyphs', 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+  --t-h1: clamp(30px, 4.2vw + 14px, 46px);
+  --t-h2: clamp(22px, 1.2vw + 17px, 28px);
+  --t-h3: 18px;
+  --t-lead: 18px;
+  --t-body: 17px;
+  --t-small: 15px;
+  --t-label: 14px;
+
+  /* Spacing scale 4 8 12 16 24 32 48 64 96 */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* Radius ("round" family for a consumer app) */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-btn: 14px;
+  --r-pill: 999px;
+
+  --shadow-card: 0 1px 0 rgba(23, 58, 42, 0.04), 0 10px 24px -18px rgba(23, 58, 42, 0.35);
+  --focus: #1d5c3c;
+
+  /* Motion */
+  --m-in: 150ms;
+  --m-out: 120ms;
+  --m-press: 90ms;
+  --m-panel: 200ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout */
+  --gutter: 16px;
+  --nav-h: 68px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --content: 720px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 32px;
+  }
+}
