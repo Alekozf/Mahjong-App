@@ -1,4 +1,4 @@
-# Mahjong: session companion
+# Mahjong Mates
 
 A small web app that helps people get ready for their first mahjong session at uni.
 

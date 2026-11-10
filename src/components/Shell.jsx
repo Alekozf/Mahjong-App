@@ -1,5 +1,5 @@
 import Icon from './Icon.jsx';
-import Tile from './Tile.jsx';
+import logoUrl from '../assets/brand/mahjong-mates-header.svg';
 import { href } from '../lib/router.js';
 
 const DESTINATIONS = [
@@ -10,9 +10,8 @@ const DESTINATIONS = [
 
 export function Brand() {
   return (
-    <a className="brand" href={href('/')} aria-label="Mahjong, session home">
-      <Tile id="dragon-green" size="mark" decorative />
-      <span className="brand__name">Mahjong</span>
+    <a className="brand" href={href('/')} aria-label="Mahjong Mates, session home">
+      <img className="brand__logo" src={logoUrl} alt="" width="202" height="34" />
     </a>
   );
 }
